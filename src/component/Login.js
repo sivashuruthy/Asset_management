@@ -1,19 +1,37 @@
-import './login.css';
+import './css/login.css';
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 const Login = () => {
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
+
     const handleLogin = async (e) => {
         e.preventDefault();
-        const response = await fetch("http://localhost:5000/login",{
+        const response = await fetch("http://localhost:5000/Login", {
             method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password })
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
         });
-    }
+        const data = await response.json();
+        if (data.success) {
+            setSuccess(navigate("/dashboard"));
+            // setEmail(""); // Clear input fields
+            // setPassword("");
 
-    const navigate = useNavigate();
+            // Clear success message after 3 seconds
+            // setTimeout(() => setSuccess(""), 2000);
+            
+
+        } else {
+            setError("Password do not match!");
+            setTimeout(() => setError(""), 3000);
+        }
+    };
+
+    
     const handleButtonClick = () => {
         navigate('/Register');
     };
@@ -35,17 +53,19 @@ const Login = () => {
                 <div className="p-4 w-50 login-css">
 
                     <h3 className='mb-3 fw-bold fs-3 login-heading'>Login</h3>
+                    {error && <div className="alert alert-danger">{error}</div>}
+                    {success && <div className="alert alert-success alert-dismissible">{success}</div>}
                     <form onSubmit={handleLogin}>
                         <div className="form-group mb-3">
                             <input type="email" value={email}
                                 onChange={(e) => setEmail(e.target.value)} className="form-control" id="email" placeholder="Enter email" required />
                         </div>
                         <div className="form-group  mb-3">
-                            <input type="password" value={password} 
-                                onChange={(e) => setEmail(e.target.value)} className="form-control" id="password" placeholder="Enter password" required />
+                            <input type="password" value={password}
+                                onChange={(e) => setPassword(e.target.value)} className="form-control" id="password" placeholder="Enter password" required />
                         </div>
                         <div className='text-center login-button'>
-                            <button type="submit" className="btn w-50  text-light">Login</button>
+                            <button type="submit" className="btn w-50 text-light">Login</button>
                         </div>
 
 

@@ -1,35 +1,18 @@
-from flask import Flask, request, jsonify  #to import flask to access api calls
-from flask_cors import CORS # 
-import mysql.connector #
+from flask import Flask  # Flask is used to create the API and handle HTTP requests/responses
+from flask_cors import CORS # CORS is used to allow cross-origin requests from the frontend
+from Routes.register import register_bp #import Blueprint
+from Routes.login import login_bp
 
+# Initialize Flask app
 app = Flask(__name__) 
-CORS(app)  # Allow frontend to connect
-
-conn = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="Csnathan@19",
-    database="asset_management"
-)
-cursor = conn.cursor()
+CORS(app)  # Allow the React frontend (or any frontend) to make requests to this backend
 
 
-# api call to 
-@app.route("/Register", methods=["POST"])
-def register():
-    data = request.get_json()
-    InputName = data["InputName"]
-    InputEmail = data["InputEmail"]
-    InputPassword = data["InputPassword"]
+# Register route blueprint
+app.register_blueprint(register_bp)
 
-    cursor.execute("SELECT * FROM users WHERE email = %s", (InputEmail,))
-    if cursor.fetchone():
-        return jsonify({"status": "error", "message": "User already exists"})
-
-    cursor.execute("INSERT INTO users (name, email, password) VALUES (%s, %s, %s)",
-                   (InputName, InputEmail, InputPassword))
-    conn.commit()
-    return jsonify({"status": "success", "message": "User registered successfully"})
+app.register_blueprint(login_bp)
 
 if __name__ == "__main__":
     app.run(debug=True)
+

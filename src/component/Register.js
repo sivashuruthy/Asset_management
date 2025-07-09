@@ -1,6 +1,8 @@
-import './Register.css';
+import './css/Register.css';
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 export default function Register() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     InputName: "",
     InputEmail: "",
@@ -14,6 +16,7 @@ export default function Register() {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.InputPassword !== formData.InputConfirmPassword) {
@@ -35,8 +38,19 @@ export default function Register() {
       if (data.status === "success") {
         setSuccess("Registration successful");
         setError("");
+        setFormData({
+          InputName: "",
+          InputEmail: "",
+          InputPassword: "",
+          InputConfirmPassword: ""
+        });
+        setTimeout(() => setSuccess(""), 3000); 
+        setTimeout(() => navigate("/"), 4000);  
+       
+
       } else {
         setError(data.message || "Registration failed");
+        setTimeout(() => setError(""), 3000);
       }
     } catch (err) {
       console.error(err);
