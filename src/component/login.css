@@ -1,0 +1,26 @@
+.background-login{
+    height: 100vh;
+    background: linear-gradient(#00467F,#A5CC82);
+}
+.loginsignup-css{
+     border-radius: 8px;
+     max-width: 600px !important;
+     width: 600px;
+     height: 300px;
+}
+.register-css{
+    background-color: #20c997;
+}
+.register-heading{
+    margin-top: 80px;
+}
+.login-css{
+     background-color:#eef4f7;
+}
+.login-heading{
+    color: #0d3b66;
+}
+.login-button{
+    background-color: #20c997;
+}
+

@@ -1,0 +1,15 @@
+.background-register{
+    height: 100vh;
+    background: linear-gradient(#00467F,#A5CC82);
+}
+
+.registerpage-css{
+     border-radius: 8px;
+     max-width: 600px !important;
+}
+.RegContent-css{
+     background-color:#eef4f7;
+}
+.RegContent-heading{
+    color: #0d3b66;
+}
