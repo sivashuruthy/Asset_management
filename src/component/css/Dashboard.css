@@ -5,3 +5,41 @@ a{
 .header-menu{    
     margin-left: 60% !important; 
 }
+.header-bg-primary{
+    background-color: #00467F;
+}
+
+
+.navbar .nav-link,
+.navbar .navbar-brand {
+    color: white !important;
+     border-bottom: 2px solid transparent;
+}
+.navbar .nav-link:hover {
+     border-bottom: 2px solid #A5CC82;
+}
+section{
+    /* background-color: antiquewhite; */
+    margin-top: 6%;
+}
+
+.app-footer {
+  height: 10vh;
+  background-color: #00467F;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-section {
+  flex-grow: 1; /* takes the remaining space */
+  overflow: hidden;
+  display: flex;
+}
+
+.dashboard-layout {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
