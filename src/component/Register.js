@@ -3,27 +3,36 @@ import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 export default function Register() {
   const navigate = useNavigate();
+
+   // State to store user input
   const [formData, setFormData] = useState({
     InputName: "",
     InputEmail: "",
     InputPassword: "",
     InputConfirmPassword: ""
   });
+
+  // State to show error or success messages
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
+   // Function to handle input changes and update formData
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  
+  // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validate if password and confirm password match
     if (formData.InputPassword !== formData.InputConfirmPassword) {
       setError("Password do not match!");
       return;
     }
     try {
+
+      // Send registration data to backend API
       const response = await fetch("http://localhost:5000/Register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -36,23 +45,32 @@ export default function Register() {
 
       const data = await response.json();
       if (data.status === "success") {
+        // If registration is successful
         setSuccess("Registration successful");
         setError("");
+
+        // Clear the form
         setFormData({
           InputName: "",
           InputEmail: "",
           InputPassword: "",
           InputConfirmPassword: ""
         });
+
+        // Hide success message after 3 seconds
         setTimeout(() => setSuccess(""), 3000); 
+
+        // Navigate to login page after 4 seconds
         setTimeout(() => navigate("/"), 4000);  
        
 
       } else {
+        // If registration failed from backend
         setError(data.message || "Registration failed");
         setTimeout(() => setError(""), 3000);
       }
     } catch (err) {
+      // If server/API call fails
       console.error(err);
       setError("Server error");
     }

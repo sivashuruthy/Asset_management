@@ -2,36 +2,41 @@ import './css/login.css';
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 const Login = () => {
+    
     const navigate = useNavigate();
+
+    // States for email and password input
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+     // States for showing success or error messages
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
 
+    // Function to handle login form submission
     const handleLogin = async (e) => {
         e.preventDefault();
+         // Sending login credentials to backend API
         const response = await fetch("http://localhost:5000/Login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password })
         });
+
+        // Receiving response from the server
         const data = await response.json();
         if (data.success) {
-            setSuccess(navigate("/dashboard"));
-            // setEmail(""); // Clear input fields
-            // setPassword("");
-
-            // Clear success message after 3 seconds
-            // setTimeout(() => setSuccess(""), 2000);
-            
+            // If login successful, navigate to dashboard and clear form
+            setSuccess(navigate("/dashboard", { replace: true }));            
 
         } else {
+            // If login fails, show error message temporarily
             setError("Password do not match!");
             setTimeout(() => setError(""), 3000);
         }
     };
 
-    
+     // Navigate to Register page when "Register" button is clicked
     const handleButtonClick = () => {
         navigate('/Register');
     };
@@ -65,7 +70,7 @@ const Login = () => {
                                 onChange={(e) => setPassword(e.target.value)} className="form-control" id="password" placeholder="Enter password" required />
                         </div>
                         <div className='text-center login-button'>
-                            <button type="submit" className="btn w-50 text-light">Login</button>
+                            <button type="submit" className="btn w-50 text-light" >Login</button>
                         </div>
 
 

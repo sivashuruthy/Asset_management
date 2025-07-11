@@ -9,7 +9,9 @@ a{
     background-color: #00467F;
 }
 
-
+.section-bg{
+  background-color: #adebeb;
+}
 .navbar .nav-link,
 .navbar .navbar-brand {
     color: white !important;
@@ -21,6 +23,19 @@ a{
 section{
     /* background-color: antiquewhite; */
     margin-top: 6%;
+}
+.text-color-1{
+  color: #00467F;
+}
+
+.Img{
+  width: 100%;
+}
+.count-card{
+  margin-top: 150px;
+}
+.text-color-2{
+  color: #0077b3;
 }
 
 .app-footer {

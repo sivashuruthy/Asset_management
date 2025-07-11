@@ -6,4 +6,4 @@ conn = mysql.connector.connect(
     password="Csnathan@19",
     database="asset_management"
 )
-cursor = conn.cursor()
+cursor = conn.cursor(dictionary=True)
