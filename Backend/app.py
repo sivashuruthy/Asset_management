@@ -3,6 +3,7 @@ from flask_cors import CORS # CORS is used to allow cross-origin requests from t
 from Routes.register import register_bp #import Blueprint
 from Routes.login import login_bp
 from Routes.dashboard import dashboard_bp
+from Routes.Asset import asset_bp
 
 
 # Initialize Flask app
@@ -15,6 +16,7 @@ app.register_blueprint(register_bp)
 
 app.register_blueprint(login_bp)
 app.register_blueprint(dashboard_bp)
+app.register_blueprint(asset_bp)
 
 if __name__ == "__main__":
     app.run(debug=True)
