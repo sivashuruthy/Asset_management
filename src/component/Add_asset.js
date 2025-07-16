@@ -8,6 +8,13 @@ export default function Add_asset() {
   const [assets, setAsset] = useState([])
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [categories, setCategories] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
+  const [newAsset, setNewAsset] = useState({
+    name: '',
+    category: '',
+    description: ''
+  });
+
 
   useEffect(() => {
     fetch("http://localhost:5000/asset")
@@ -26,6 +33,40 @@ export default function Add_asset() {
   const filteredAssets = selectedCategory === "All"
     ? assets
     : assets.filter((a) => a.category === selectedCategory);
+
+
+  useEffect(() => {
+    fetchAssets();
+  }, []);
+
+  const fetchAssets = () => {
+    fetch("http://localhost:5000/asset")
+      .then((res) => res.json())
+      .then((data) => setAsset(data))
+      .catch((err) => console.error(err));
+  };
+
+  const handleChange = (e) => {
+    setNewAsset({ ...newAsset, [e.target.name]: e.target.value });
+  };
+
+  const handleAddAsset = (e) => {
+    e.preventDefault();
+    fetch("http://localhost:5000/add_asset", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newAsset)
+    })
+      .then((res) => res.json())
+      .then(() => {
+        fetchAssets();  // refresh table
+        setShowPopup(false);
+        setNewAsset({ name: '', category: '', description: '' });
+      })
+      .catch((err) => console.error(err));
+  };
 
 
   const handleBack = () => {
@@ -69,7 +110,21 @@ export default function Add_asset() {
                 className="mb-4 p-2 border border-gray-300 rounded col-md-5"
               />
               <button
-                className="mb-4 p-2 border border-gray-300 rounded col-md-2"> Add Asset </button>
+                className="mb-4 p-2 border border-0 rounded col-md-2 add_btn" onClick={() => setShowPopup(true)}> Add Asset </button>
+              {showPopup && (<div>
+            <div className="popup">
+          <div className="popup-inner">
+            <h3>Add New Asset</h3>
+            <form onSubmit={handleAddAsset}>
+              <input name="name" placeholder="Asset Name" value={newAsset.name} onChange={handleChange} required />
+              <input name="category" placeholder="Category" value={newAsset.category} onChange={handleChange} required />
+              <input name="description" placeholder="Description" value={newAsset.description} onChange={handleChange} />
+              <button type="submit">Add</button>
+              <button type="button" onClick={() => setShowPopup(false)}>Cancel</button>
+            </form>
+          </div>
+        </div>
+        </div>)}
             </div>
           </div>
           <table className="table table-bordered table-striped">

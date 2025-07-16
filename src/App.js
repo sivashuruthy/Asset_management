@@ -15,7 +15,7 @@ function App() {
             <Route path="/Dashboard" element={<Dashboard />} />
             <Route path="/Add_asset" element={<Add_asset />} />
           </Routes>
-        </BrowserRouter>
+    </BrowserRouter>
   );
 }
 

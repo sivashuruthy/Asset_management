@@ -5,3 +5,36 @@
 .search_bar{
   margin-left: 45%;
 }
+.add_btn{
+  background-color: #A5CC82;
+  margin-left: 6px;
+}
+
+/* th{
+  background-color: #A5CC82;
+} */
+
+.popup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.5);
+  display: flex; align-items: center; justify-content: center;
+}
+
+.popup-inner {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+}
+
+input {
+  display: block;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+button {
+  margin-right: 10px;
+}
