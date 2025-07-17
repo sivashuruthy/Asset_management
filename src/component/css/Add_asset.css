@@ -29,7 +29,7 @@
   width: 300px;
 }
 
-input {
+input,select {
   display: block;
   margin-bottom: 10px;
   width: 100%;
@@ -37,4 +37,8 @@ input {
 
 button {
   margin-right: 10px;
+}
+
+thead th {
+  position: sticky;
 }
