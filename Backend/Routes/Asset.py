@@ -17,4 +17,23 @@ def add_asset():
     conn.commit()
     return jsonify({"message": "Asset added successfully"})
 
+@asset_bp.route('/update_asset/<int:asset_id>', methods=['PUT'])
+def edit_asset(asset_id):
+        data = request.get_json()
+        name = data.get('name')
+        category = data.get('category')
+        status = data.get('status')
+        purchase_date = data.get('purchase_date')
+        assigned_to = data.get('assigned_to')
+        query = """
+        UPDATE assets 
+        SET name=%s, category=%s, status=%s, purchase_date=%s, assigned_to=%s 
+        WHERE asset_id=%s
+    """
+        cursor.execute(query,(name, category, status, purchase_date, assigned_to, asset_id))
+        conn.commit()
+        return jsonify({"message": "Asset updated successfully"})
+
+
+
 
