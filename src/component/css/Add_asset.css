@@ -6,20 +6,56 @@
   margin-left: 45%;
 }
 .add_btn{
-  background-color: #A5CC82;
+  background-color: #00e68a;
   margin-left: 6px;
 }
 
+.delete_btn{
+  background-color: #ff8080;
+  margin-left: 6px;
+}
 /* th{
   background-color: #A5CC82;
 } */
 
+table th, table td {
+  white-space: nowrap;
+  padding: 12px;
+  text-align: center;
+}
+
+.asset-section {
+  flex-grow: 1; /* takes the remaining space */
+  overflow:auto;
+  display: flex;
+  overflow-x: hidden;
+}
+
+.asset-layout {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+section{
+  overflow:scroll;
+
+}
+
+
+.scrollit {
+    overflow:scroll;
+    max-height: 360px;
+    overflow-x: hidden;
+    border-radius: 8px;
+}
 .popup {
   position: fixed;
   top: 0; left: 0;
   width: 100vw; height: 100vh;
   background: rgba(0,0,0,0.5);
   display: flex; align-items: center; justify-content: center;
+  z-index: 9999;
 }
 
 .popup-inner {

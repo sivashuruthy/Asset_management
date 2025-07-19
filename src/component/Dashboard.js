@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
 import './css/Dashboard.css'
 import Image3 from './Image/Image3.png'
+import { useNavigate } from 'react-router-dom';
 
 export default function Dashboard() {
+    const navigate = useNavigate();
 
     // State to hold asset counts fetched from backend
     const [counts, setCounts] = useState({
@@ -20,13 +22,20 @@ export default function Dashboard() {
             )
             .catch((err) => console.error("Error fetching data:", err));
     }, []);
+    
+    const handleLogout = () => {
+            localStorage.clear(); // Clear session data
+            navigate('/', { replace: true }); // Redirect to login page
+
+        };
+
 
     // Data for the dashboard cards
     const cardData = [
-        { title: "Total", count: counts.total, bgColor: "bg-primary" },
-        { title: "Assigned", count: counts.assigned, bgColor: "bg-success" },
-        { title: "Unassigned", count: counts.unassigned, bgColor: "bg-warning" },
-        { title: "Faulty/Expired", count: counts.faulty, bgColor: "bg-danger" },
+        { title: "Total", count: counts.total },
+        { title: "Assigned", count: counts.assigned },
+        { title: "Unassigned", count: counts.unassigned },
+        { title: "Faulty/Expired", count: counts.faulty },
     ];
 
     return (
@@ -38,9 +47,9 @@ export default function Dashboard() {
                     <div className='container-fluid me-0 header-menu'>
                         <ul className='navbar-nav me-auto mb-2 mb-lg-0 ms-3'>
                             <li className='nav-item'><a href="#" className="nav-link">Employee</a></li>
-                            <li className='nav-item'><a href="/Add_asset" className="nav-link">Add asset</a></li>
-                            <li className='nav-item'><a href="#" className="nav-link">Assign</a></li>
+                            <li className='nav-item'><a href="/Add_asset" className="nav-link">Addasset</a></li>
                             <li className='nav-item'><a href="#" className="nav-link">Report</a></li>
+                            <li className='nav-item'><button onClick={handleLogout} className="nav-link">LogOut</button></li>
                         </ul>
                     </div>
                 </nav>

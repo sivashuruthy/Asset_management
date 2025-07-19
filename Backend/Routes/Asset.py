@@ -5,7 +5,7 @@ asset_bp = Blueprint('asset',__name__)  #Blueprint name
 
 @asset_bp.route('/asset', methods=['GET'])
 def get_asset():
-        cursor.execute("SELECT * FROM assets")
+        cursor.execute("SELECT asset_id, name, category, status, DATE_FORMAT(purchase_date, '%Y-%m-%d') as purchase_date, assigned_to FROM assets")
         data = cursor.fetchall()
         return jsonify(data)
 
@@ -33,6 +33,16 @@ def edit_asset(asset_id):
         cursor.execute(query,(name, category, status, purchase_date, assigned_to, asset_id))
         conn.commit()
         return jsonify({"message": "Asset updated successfully"})
+
+@asset_bp.route('/delete_asset/<int:asset_id>', methods=['DELETE'])
+def delete_asset(asset_id):
+
+    try:
+        cursor.execute("DELETE FROM assets WHERE asset_id = %s", (asset_id,))
+        conn.commit()
+        return jsonify({'message': 'Asset deleted successfully'}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 

@@ -95,6 +95,22 @@ export default function Add_asset() {
       .catch((err) => console.error(err));
   };
 
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete this asset?")) {
+      fetch(`http://localhost:5000/delete_asset/${id}`, {
+        method: "DELETE"
+      })
+        .then(res => {
+          if (res.ok) {
+            alert("Deleted successfully");
+            fetchAssets(); // Refresh data
+          } else {
+            alert("Delete failed");
+          }
+        });
+    }
+  };
+
 
   // Handles form submission to add new asset
   const handleAddAsset = (e) => {
@@ -129,10 +145,10 @@ export default function Add_asset() {
         </nav>
       </header>
 
-      <section className="app-section section-bg dashboard-layout">
+      <section className="asset-section section-bg asset-layout">
 
         <div className="container mt-4  ">
-          <div className="d-flex col-md-12 position-sticky">
+          <div className="d-flex col-md-12 ">
             <div className="col-md-3">
 
               <select
@@ -163,8 +179,9 @@ export default function Add_asset() {
 
             </div>
           </div>
+          <div className="scrollit">
           <table className="table table-bordered table-striped">
-            <thead className="table-dark">
+            <thead className="table-dark sticky-top">
               <tr>
                 <th>ID</th>
                 <th>Asset Name</th>
@@ -185,14 +202,16 @@ export default function Add_asset() {
                   <td>{asset.status}</td>
                   <td>{asset.assigned_to}</td>                  
                   <td>{asset.purchase_date}</td>
-                  <td><button className="mb-4 p-2 border border-0 rounded add_btn text-white d-flex justify-content-between"
+                  <td><button className="mb-4 p-2 border border-0 rounded add_btn text-white"
                     onClick={() => { setSelectedAsset(asset); setShowEdit(true); }}>Edit</button></td>
 
-                  <td><button>Delete</button></td>
+                  <td><button className="mb-4 p-2 border border-0 rounded delete_btn text-white"
+                  onClick={() => handleDelete(asset.asset_id)}>Delete</button></td>
                 </tr>
               ))}
             </tbody>
           </table>
+          </div>
           {/* Edit popup  */}
           {showEdit && (<div>
             <div className="popup">

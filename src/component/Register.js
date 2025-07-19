@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 export default function Register() {
   const navigate = useNavigate();
 
-   // State to store user input
+  // State to store user input
   const [formData, setFormData] = useState({
     InputName: "",
     InputEmail: "",
@@ -16,7 +16,7 @@ export default function Register() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-   // Function to handle input changes and update formData
+  // Function to handle input changes and update formData
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
@@ -58,11 +58,11 @@ export default function Register() {
         });
 
         // Hide success message after 3 seconds
-        setTimeout(() => setSuccess(""), 3000); 
+        setTimeout(() => setSuccess(""), 3000);
 
         // Navigate to login page after 4 seconds
-        setTimeout(() => navigate("/"), 4000);  
-       
+        setTimeout(() => navigate("/"), 4000);
+
 
       } else {
         // If registration failed from backend
@@ -75,6 +75,11 @@ export default function Register() {
       setError("Server error");
     }
 
+  };
+
+  const handleButtonClick = () => {
+    
+    navigate('/', { replace: true });
   };
 
   return (
@@ -99,8 +104,11 @@ export default function Register() {
             <div className="form-group  mb-3">
               <input type="password" className="form-control" id="InputConfirmPassword" placeholder="Confirm password" onChange={handleChange} required />
             </div>
-            <div className='text-center login-button'>
-              <button type="submit" className="btn w-50  text-light">Register</button>
+            <div className='text-center  login-button'>
+              <button type="submit" className="btn w-50 text-light">Register</button>
+            </div>
+            <div className='text-center mt-3  login-button'>
+              <button onClick={handleButtonClick} className="btn w-50 text-light">Back</button>
             </div>
 
 
