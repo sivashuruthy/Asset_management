@@ -124,6 +124,7 @@ export default function Add_asset() {
     })
       .then((res) => res.json())
       .then(() => {
+        alert("Asset Added successfully!");
         fetchAssets();  // Refresh the asset list
         setShowPopup(false); // Close popup        
         // Reset form
@@ -202,7 +203,7 @@ export default function Add_asset() {
                   <td>{asset.status}</td>
                   <td>{asset.assigned_to}</td>                  
                   <td>{asset.purchase_date}</td>
-                  <td><button className="mb-4 p-2 border border-0 rounded add_btn text-white"
+                  <td><button className="mb-4 p-2 border border-0 rounded edit_btn text-white"
                     onClick={() => { setSelectedAsset(asset); setShowEdit(true); }}>Edit</button></td>
 
                   <td><button className="mb-4 p-2 border border-0 rounded delete_btn text-white"
@@ -235,12 +236,13 @@ export default function Add_asset() {
                     <option value="faulty">Faulty</option>
                     <option value="expired">Expired</option>
                   </select>
-                  <input name="purchase_date" placeholder="YYYY-MM-DD" value={selectedAsset.purchase_date} onChange={handleEditChange} required />
+                  <input type="date" name="purchase_date" placeholder="YYYY-MM-DD" value={selectedAsset.purchase_date} onChange={handleEditChange} required />
                   <input name="assigned_to" placeholder="assigned_to" value={selectedAsset.assigned_to} onChange={handleEditChange} disabled={newAsset.status === "unassigned"}
                     required={newAsset.status !== "unassigned"}
                   />
-                  <button type="submit">Edit</button>
-                  <button type="button" onClick={() => setShowEdit(false)}>Cancel</button>
+                  <button type="submit"className="mb-4 p-2 border border-0 rounded edit_btn text-white">save</button>
+                  <button type="button" onClick={() => setShowEdit(false)}
+                    className="mb-4 p-2 border border-0 rounded edit_btn text-white">Cancel</button>
                 </form>
               </div>
             </div>
@@ -270,11 +272,12 @@ export default function Add_asset() {
                     <option value="faulty">Faulty</option>
                     <option value="expired">Expired</option>
                   </select>
-                  <input name="purchase_date" placeholder="YYYY-MM-DD" value={newAsset.purchase_date} onChange={handleChange} required />
+                  <input type="date" name="purchase_date" placeholder="YYYY-MM-DD" value={newAsset.purchase_date} onChange={handleChange} required />
                   <input name="assigned_to" placeholder="assigned_to" value={newAsset.assigned_to} onChange={handleChange} disabled={newAsset.status === "unassigned"}
                     required={newAsset.status !== "unassigned"} />
-                  <button type="submit">Add</button>
-                  <button type="button" onClick={() => setShowPopup(false)}>Cancel</button>
+                  <button type="submit" className="mb-4 p-2 border border-0 rounded edit_btn text-white">Add</button>
+                  <button type="button" 
+                  className="mb-4 p-2 border border-0 rounded edit_btn text-white" onClick={() => setShowPopup(false)}>Cancel</button>
                 </form>
               </div>
             </div>

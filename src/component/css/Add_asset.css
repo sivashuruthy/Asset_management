@@ -7,9 +7,14 @@
 }
 .add_btn{
   background-color: #00e68a;
-  margin-left: 6px;
+  margin-left: 222px;
+  margin-top: 26px;
 }
 
+.edit_btn{
+  background-color: #00e68a;
+  margin-left: 6px;
+}
 .delete_btn{
   background-color: #ff8080;
   margin-left: 6px;
